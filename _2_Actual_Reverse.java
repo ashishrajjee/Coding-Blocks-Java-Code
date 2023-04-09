@@ -1,38 +1,48 @@
-package _23_Queue_Questions;
+package _22Stack_Questions;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import _21Dyanmic_Stack_and_Queue._1_Dynamic_Stack;
 
 public class _2_Actual_Reverse {
 
 	public static void main(String[] args) {
 		
-		Queue<Integer> q = new ArrayDeque<>();
+		_1_Dynamic_Stack ds = new _1_Dynamic_Stack();
+		ds.push(10);
+		ds.push(20);
+		ds.push(30);
+		ds.push(40);
+		ds.push(50);
 		
-		q.add(1);
-		q.add(2);
-		q.add(3);
-		q.add(4);
-		q.add(5);
+		ds.display(); //50 40 30 20 10
 		
-		actualReverseBest(q);
+		actualReverse(ds, new _1_Dynamic_Stack());
 		
-		while(!q.isEmpty()) {
-			System.out.print(q.remove() + " ");
+		ds.display(); //10 20 30 40 50
+		
+	}
+
+	public static void actualReverse(_1_Dynamic_Stack ds, _1_Dynamic_Stack helper) {
+		
+		if(ds.isEmpty()) {
+			actualReverseHelper(ds, helper);
+			return;
 		}
+
+		int temp = ds.pop();
+		helper.push(temp);
+		
+		actualReverse(ds, helper);
 		
 	}
 	
-	public static void actualReverseBest(Queue<Integer> q) {
+	public static void actualReverseHelper(_1_Dynamic_Stack ds, _1_Dynamic_Stack helper) {
 		
-		if(q.isEmpty())
+		if(helper.isEmpty())
 			return;
 		
-		int val = q.remove();
-		
-		actualReverseBest(q);
-		
-		q.add(val);
-	}
+		int temp = helper.pop();
+		actualReverseHelper(ds, helper);
+		ds.push(temp);
+	}	
 	
 }
